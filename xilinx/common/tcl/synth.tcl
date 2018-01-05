@@ -3,6 +3,8 @@
 # Read the specified list of IP files
 read_ip [glob -directory $ipdir [file join * {*.xci}]]
 
+#synth_ip [get_ips vu190xdma]
+
 # Synthesize the design
 synth_design -top $top -flatten_hierarchy rebuilt
 

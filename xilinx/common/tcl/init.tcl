@@ -1,5 +1,6 @@
 # See LICENSE for license details.
 
+set scriptdir [file dirname [info script]]
 # Include helper functions
 source [file join $scriptdir "util.tcl"]
 
@@ -25,14 +26,14 @@ foreach xci_file $xci_files {
   set_property GENERATE_SYNTH_CHECKPOINT {false} -quiet $xci_file
 }
 
-# Get a list of IPs in the current design
-set obj [get_ips]
+# # Get a list of IPs in the current design
+# set obj [get_ips]
 
-# Generate target data for the inlcuded IPs in the design
-generate_target all $obj
+# # Generate target data for the inlcuded IPs in the design
+# generate_target all $obj
 
-# Export the IP user files
-export_ip_user_files -of_objects $obj -no_script -force
+# # Export the IP user files
+# export_ip_user_files -of_objects $obj -no_script -force
 
 # Get the list of active source and constraint files
 set obj [current_fileset]

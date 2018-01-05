@@ -9,6 +9,9 @@ source [file join $scriptdir "prologue.tcl"]
 # Initialize Vivado project files
 source [file join $scriptdir "init.tcl"]
 
+# Generate VCS sim scripts
+source [file join $scriptdir "export_sim.tcl"]
+
 # Synthesize the design
 source [file join $scriptdir "synth.tcl"]
 

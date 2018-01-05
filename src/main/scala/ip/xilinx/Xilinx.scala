@@ -320,3 +320,65 @@ class sdio_spi_bridge() extends BlackBox
     val spi_dq_i = Bits(OUTPUT,4)
   }
 }
+
+//-------------------------------------------------------------------------
+// vu190_sys_clock_mmcm
+//-------------------------------------------------------------------------
+//IP : xilinx mmcm with "NO_BUFFER" input clock
+
+class vu190_sys_clock_mmcm0 extends BlackBox {
+  val io = new Bundle {
+    val clk_in1   = Clock(INPUT)
+    val clk_out1  = Clock(OUTPUT) //100MHz
+    val clk_out2  = Clock(OUTPUT) //125MHz
+    val clk_out3  = Clock(OUTPUT) //140.625 MHz
+  }
+
+  ElaborationArtefacts.add(
+    "vu190_sys_clock_mmcm0.vivado.tcl",
+    """create_ip -name clk_wiz -vendor xilinx.com -library ip -module_name vu190_sys_clock_mmcm0 -dir $ipdir -force
+       set_property -dict [list \
+       CONFIG.PRIMITIVE {Auto} \
+       CONFIG.USE_FREQ_SYNTH {true} \
+       CONFIG.PRIM_IN_FREQ {48} \
+       CONFIG.CLKOUT2_USED {true} \
+       CONFIG.CLKOUT3_USED {true} \
+       CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {100} \
+       CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {125} \
+       CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {140} \
+       CONFIG.USE_PHASE_ALIGNMENT {false} \
+       CONFIG.SECONDARY_SOURCE {Single_ended_clock_capable_pin} \
+       CONFIG.CLKIN1_JITTER_PS {208.32999999999998} \
+       CONFIG.CLKOUT4_REQUESTED_OUT_FREQ {48} \
+       CONFIG.CLKOUT5_REQUESTED_OUT_FREQ {48} \
+       CONFIG.CLKOUT6_REQUESTED_OUT_FREQ {48} \
+       CONFIG.CLKOUT7_REQUESTED_OUT_FREQ {48} \
+       CONFIG.CLKOUT1_DRIVES {Buffer} \
+       CONFIG.CLKOUT2_DRIVES {Buffer} \
+       CONFIG.CLKOUT3_DRIVES {Buffer} \
+       CONFIG.CLKOUT4_DRIVES {Buffer} \
+       CONFIG.CLKOUT5_DRIVES {Buffer} \
+       CONFIG.CLKOUT6_DRIVES {Buffer} \
+       CONFIG.CLKOUT7_DRIVES {Buffer} \
+       CONFIG.FEEDBACK_SOURCE {FDBK_AUTO} \
+       CONFIG.USE_LOCKED {false} \
+       CONFIG.USE_RESET {false} \
+       CONFIG.MMCM_DIVCLK_DIVIDE {2} \
+       CONFIG.MMCM_CLKFBOUT_MULT_F {46.875} \
+       CONFIG.MMCM_CLKIN1_PERIOD {20.833} \
+       CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
+       CONFIG.MMCM_COMPENSATION {AUTO} \
+       CONFIG.MMCM_CLKOUT0_DIVIDE_F {11.250} \
+       CONFIG.MMCM_CLKOUT1_DIVIDE {9} \
+       CONFIG.MMCM_CLKOUT2_DIVIDE {8} \
+       CONFIG.NUM_OUT_CLKS {3} \
+       CONFIG.CLKOUT1_JITTER {197.712} \
+       CONFIG.CLKOUT1_PHASE_ERROR {231.542} \
+       CONFIG.CLKOUT2_JITTER {191.751} \
+       CONFIG.CLKOUT2_PHASE_ERROR {231.542} \
+       CONFIG.CLKOUT3_JITTER {188.691} \
+       CONFIG.CLKOUT3_PHASE_ERROR {231.542} \
+       CONFIG.AUTO_PRIMITIVE {MMCM}] [get_ips vu190_sys_clock_mmcm0]
+       synth_ip [get_ips vu190_sys_clock_mmcm0]"""
+  )
+}
