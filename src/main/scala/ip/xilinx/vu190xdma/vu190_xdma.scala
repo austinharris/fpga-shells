@@ -148,7 +148,7 @@ class vu190xdma(depth: BigInt)(implicit val p:Parameters) extends BlackBox
       ################################################################
       # Check if script is running in correct Vivado version.
       ################################################################
-      set scripts_vivado_version 2017.1
+      set scripts_vivado_version 2017.4
       set current_vivado_version [version -short]
 
       if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -436,7 +436,7 @@ class vu190xdma(depth: BigInt)(implicit val p:Parameters) extends BlackBox
       ] $util_vector_logic_0
 
         # Create instance: xdma_0, and set properties
-        set xdma_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xdma:3.1 xdma_0 ]
+        set xdma_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xdma:4.0 xdma_0 ]
         set_property -dict [ list \
       CONFIG.INS_LOSS_NYQ {5} \
       CONFIG.axi_data_width {256_bit} \
