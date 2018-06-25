@@ -3,18 +3,18 @@ package sifive.fpgashells.devices.xilinx.xilinxvu190xdma
 
 import Chisel._
 import freechips.rocketchip.config._
-import freechips.rocketchip.coreplex.HasMemoryBus
+import freechips.rocketchip.subsystem.BaseSubsystem
 import freechips.rocketchip.diplomacy.{LazyModule, LazyModuleImp, AddressRange}
 
 case object MemoryXilinxDDRKey extends Field[XilinxVU190XDMAParams]
 
-trait HasMemoryXilinxVU190XDMA extends HasMemoryBus {
+trait HasMemoryXilinxVU190XDMA { this: BaseSubsystem =>
   val module: HasMemoryXilinxVU190XDMAModuleImp
 
   val xilinxvu190xdma = LazyModule(new XilinxVU190XDMA(p(MemoryXilinxDDRKey)))
 
   require(nMemoryChannels == 1, "Coreplex must have 1 master memory port")
-  xilinxvu190xdma.node := memBuses.head.toDRAMController
+  xilinxvu190xdma.node := memBuses.head.toDRAMController(Some("xilinxvu190xdma"))()
 }
 
 trait HasMemoryXilinxVU190XDMABundle {
