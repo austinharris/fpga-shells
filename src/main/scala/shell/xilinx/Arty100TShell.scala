@@ -121,7 +121,7 @@ class DDRArtyOverlay(val shell: Arty100TShell, val name: String, params: DDROver
   val ddrClk1 = shell { ClockSinkNode(freqMHz = 166.666)}
   val ddrClk2 = shell { ClockSinkNode(freqMHz = 200)}
   val ddrGroup = shell { ClockGroup() }
-  ddrClk1 := params.wrangler := ddrGroup := params.corePLL
+  ddrClk1 := params.wrangler := ddrGroup //:= params.corePLL
   ddrClk2 := params.wrangler := ddrGroup
   
   val migParams = XilinxArty100TMIGParams(address = AddressSet.misaligned(params.baseAddress, size))
